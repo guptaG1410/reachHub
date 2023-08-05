@@ -1,11 +1,16 @@
-import Products from "../../Products/Products"
+import useFetch from "../../../hooks/fetchData";
+import Products from "../../Products/Products";
 
-const RelatedProducts = () => {
-  return (
-    <div className="related-products">
-      <Products headingText='Related Products'/>
-    </div>
-  )
-}
+const RelatedProducts = ({ categoryId, productId }) => {
+    const { data } = useFetch(
+        `/api/prdoucts?populate=*&filters[id][$ne]=${productId}&filters[categories][id]=${categoryId}&pagination[start]=0&pagination[limit]=4`
+    );
 
-export default RelatedProducts
+    return (
+        <div className="related-products">
+            <Products headingText="Related Products" products={data} />
+        </div>
+    );
+};
+
+export default RelatedProducts;

@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { TbSearch } from 'react-icons/tb';
 import { CgShoppingCart } from 'react-icons/cg';
 import { VscAccount } from 'react-icons/vsc';
-import Search from './Search/Search';
-import { Context } from '../../utils/context';
-import Cart from '../Cart/Cart';
 import './Header.scss';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     const offSet = window.scrollY;
@@ -33,7 +31,9 @@ const Header = () => {
           <li>About</li>
           <li>Category</li>
         </ul>
-        <div className="center">ShopCart</div>
+        <div className="center" onClick={() => navigate('/')}>
+          ShopCart
+        </div>
         <div className="right">
           <TbSearch />
           <VscAccount />
