@@ -1,18 +1,25 @@
 import './SingleProduct.scss';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
-import { FaCartPlus } from 'react-icons/fa';
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaPinterest,
+  FaCartPlus,
+} from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hooks/fetchData';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from '../../utils/context';
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
+  const { handleAddToCart } = useContext(Context);
   const { data } = useFetch(`/api/prdoucts?populate=*&[filters][id]=${id}`);
 
-  if (!data) return;
-  const product = data?.data?.[0]?.attributes;
-
+  
   const decrement = () => {
     setQuantity((prevState) => {
       if (prevState === 1) return 1;
@@ -24,6 +31,9 @@ const SingleProduct = () => {
     setQuantity((prevState) => prevState + 1);
   };
 
+  if (!data) return;
+  const product = data?.data?.[0]?.attributes;
+  
   return (
     <div className="single-product-main-content">
       <div className="layout">
@@ -49,7 +59,13 @@ const SingleProduct = () => {
                 <span onClick={increment}>+</span>
               </div>
 
-              <button className="add-to-cart-button">
+              <button
+                className="add-to-cart-button"
+                onClick={() => {
+                  handleAddToCart(data?.data?.[0], quantity);
+                  setQuantity(1);
+                }}
+              >
                 <FaCartPlus size={20} />
                 ADD TO CART
               </button>
@@ -61,6 +77,16 @@ const SingleProduct = () => {
               <span className="text-bold">
                 Category:{' '}
                 <span>{product.categories.data[0].attributes.title}</span>
+              </span>
+              <span className="text-bold">
+                Share:
+                <span className="social-icons">
+                  <FaFacebookF size={16} />
+                  <FaTwitter size={16} />
+                  <FaInstagram size={16} />
+                  <FaLinkedinIn size={16} />
+                  <FaPinterest size={16} />
+                </span>
               </span>
             </div>
           </div>

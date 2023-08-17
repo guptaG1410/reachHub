@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.scss';
 import { FaLocationArrow, FaMobileAlt, FaEnvelope } from 'react-icons/fa';
+import Payment from '../../assets/payments.png';
 
 const Footer = () => {
   return (
@@ -49,6 +50,14 @@ const Footer = () => {
           <span className="text">Returns</span>
           <span className="text">Terms & Conditions</span>
           <span className="text">Contact Us</span>
+        </div>
+      </div>
+      <div className="bottom-bar">
+        <div className="bottom-bar-content">
+          <span className="text">
+            ShopCart 2023 CREATED BY Shopcart PREMIUM E-COMMERCE SOLUTIONS.
+          </span>
+          <img src={Payment} alt=''/>
         </div>
       </div>
     </div>
